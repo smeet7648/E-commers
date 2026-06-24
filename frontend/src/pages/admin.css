@@ -1,0 +1,44 @@
+.admin-container {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8f9fa;
+}
+
+.admin-form {
+  width: 450px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  border: 1px solid #eee;
+}
+
+.admin-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.admin-form input,
+.admin-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.admin-form textarea {
+  height: 120px;
+  resize: none;
+}
+
+.admin-form button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #111;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
