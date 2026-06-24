@@ -15,7 +15,7 @@ function Admin() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/save", {
+      await axios.post("https://e-commers-b1u3.onrender.com/api/save", {
         name,
         category,
         image,

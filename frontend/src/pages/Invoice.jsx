@@ -14,7 +14,7 @@ function Invoice() {
   const checkout = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/send-order-email",
+        "https://e-commers-b1u3.onrender.com/api/send-order-email",
         {
           email,
           cart,

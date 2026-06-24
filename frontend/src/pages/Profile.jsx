@@ -10,7 +10,7 @@ function Profile() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api/profile", {
+      .get("https://e-commers-b1u3.onrender.com/api/profile", {
         withCredentials: true,
       })
       .then((res) => {
@@ -32,7 +32,7 @@ function Profile() {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/profile/upload",
+        "https://e-commers-b1u3.onrender.com/api/profile/upload",
         formData,
         {
           withCredentials: true,
@@ -48,7 +48,7 @@ function Profile() {
 
   const logout = async () => {
     await axios.get(
-      "http://localhost:5000/api/logout",
+      "https://e-commers-b1u3.onrender.com/api/logout",
       {
         withCredentials: true,
       }
@@ -86,7 +86,7 @@ function Profile() {
             <img
               src={
                 user.profileImage
-                  ? `http://localhost:5000/uploads/${user.profileImage}`
+                  ? `https://e-commers-b1u3.onrender.com/uploads/${user.profileImage}`
                   : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
               }
               alt="Profile"

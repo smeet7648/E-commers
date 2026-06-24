@@ -17,7 +17,7 @@ export default function Signup() {
     }
     try {
       await axios.post(
-        "http://localhost:5000/api/signup",
+        "https://e-commers-b1u3.onrender.com/api/signup",
         { name, email, password },
         { withCredentials: true } // important
       );

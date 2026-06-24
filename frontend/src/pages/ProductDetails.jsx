@@ -16,7 +16,7 @@ function ProductDetails() {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/api/${id}`)
+      .get(`https://e-commers-b1u3.onrender.com/api/${id}`)
       .then((res) => {
         setProduct(res.data);
       })
@@ -102,7 +102,7 @@ function ProductDetails() {
 
   const submitReview = async () => {
     try {
-      const res = await axios.post(`http://localhost:5000/api/${id}/review`, {
+      const res = await axios.post(`https://e-commers-b1u3.onrender.com/${id}/review`, {
         name: "User",
         rating,
         comment,

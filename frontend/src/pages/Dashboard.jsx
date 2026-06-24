@@ -27,7 +27,7 @@ function Dashboard() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/api")
+      .get("https://e-commers-b1u3.onrender.com/api")
       .then((res) => {
         setProducts(res.data);
       })
