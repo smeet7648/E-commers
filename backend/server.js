@@ -23,6 +23,9 @@ app.use("/api", require("./routes/products"));
 app.use("/api", require("./routes/checkout"));
 app.use("/uploads", express.static("uploads"));
 
+app.get("/", (req, res) => {
+  res.send("Backend Running");
+});
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
