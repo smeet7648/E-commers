@@ -164,7 +164,7 @@ function Navbar({ search, setSearch, products = [] }) {
               <h3>Total ₹{total.toLocaleString()}</h3>
 
               <button
-                onClick={() => navigate("https://e-commers-b1u3.onrender.com/api/invoice/:id")}
+                onClick={() => navigate("/invoice/:id")}
                 className="buy-btn"
               >
                 Buy Now
