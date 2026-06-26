@@ -61,22 +61,28 @@ router.post("/login", async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      path: "/",
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.json({
+    return res.status(200).json({
       message: "Login success",
       role: user.role,
     });
   } catch (err) {
-    res.status(500).json({
+    console.log(err);
+
+    return res.status(500).json({
       error: err.message,
     });
   }
 });
 
+
 router.get("/profile", async (req, res) => {
+
   try {
     const token = req.cookies.token;
 
@@ -87,14 +93,12 @@ router.get("/profile", async (req, res) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
     const user = await User.findById(decoded.id);
 
     res.json(user);
   } catch (err) {
-    res.status(500).json({
-      error: err.message,
-    });
+    console.log(err);
+    res.status(500).json({ error: err.message });
   }
 });
 

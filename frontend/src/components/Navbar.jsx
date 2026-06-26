@@ -119,10 +119,6 @@ function Navbar({ search, setSearch, products = [] }) {
             Profile
           </Link>
 
-          <Link to="/order-history" onClick={() => setMenuOpen(false)}>
-            Orders
-          </Link>
-
           <Link to="/" onClick={() => setMenuOpen(false)}>
             Login
           </Link>
@@ -168,7 +164,7 @@ function Navbar({ search, setSearch, products = [] }) {
               <h3>Total ₹{total.toLocaleString()}</h3>
 
               <button
-                onClick={() => navigate("/invoice/:id")}
+                onClick={() => navigate("https://e-commers-b1u3.onrender.com/api/invoice/:id")}
                 className="buy-btn"
               >
                 Buy Now
