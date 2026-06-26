@@ -129,7 +129,9 @@ function Navbar({ search, setSearch, products = [] }) {
             🛒 Cart ({totalItems})
           </button>
 
-          <Link id="fix1" to="/">Login</Link>
+          <Link id="fix1" to="/">
+            Login
+          </Link>
         </div>
       </nav>
 
@@ -163,10 +165,7 @@ function Navbar({ search, setSearch, products = [] }) {
             <div className="cart-footer">
               <h3>Total ₹{total.toLocaleString()}</h3>
 
-              <button
-                onClick={() => navigate("/invoice/:id")}
-                className="buy-btn"
-              >
+              <button onClick={() => navigate("/invoice")} className="buy-btn">
                 Buy Now
               </button>
             </div>
