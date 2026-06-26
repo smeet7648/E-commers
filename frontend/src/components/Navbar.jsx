@@ -115,6 +115,10 @@ function Navbar({ search, setSearch, products = [] }) {
             Wishlist
           </Link>
 
+          <Link to="/about" onClick={() => setMenuOpen(false)}>
+            About
+          </Link>
+
           <Link to="/profile" onClick={() => setMenuOpen(false)}>
             Profile
           </Link>
