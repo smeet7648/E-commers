@@ -8,7 +8,7 @@ import Footer from "../components/Footer";
 function Dashboard() {
   const images = [
     "https://static.vecteezy.com/system/resources/previews/006/560/561/non_2x/4-april-sale-poster-or-banner-with-4-over-on-product-podium-scene-april-4-sales-banner-template-design-for-social-media-and-website-special-offer-sale-50-off-campaign-or-promotion-free-vector.jpg",
-    "https://img.freepik.com/premium-vector/discount-sale-promotion-event-horizontal-banner-template-design_554907-369.jpg?w=2000",
+    "https://gd-filems.dancf.com/gaoding/cms/mcm79j/mcm79j/60898/18232349-fd19-40f5-823d-aeb093c820231785920.jpg",
     "https://static.vecteezy.com/system/resources/previews/000/178/364/large_2x/super-sale-offer-and-discount-banner-template-for-marketing-and-vector.jpg",
     "https://st-gdx.dancf.com/gaodingx/0/uxms/design/20200918-115810-c236.png",
   ];
