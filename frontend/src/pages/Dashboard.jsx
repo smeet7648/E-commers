@@ -15,28 +15,6 @@ function Dashboard() {
 
   const [current, setCurrent] = useState(0);
 
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Scroll to top whenever page changes
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  }, [currentPage]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategory, search, priceRange]);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
-    }, 2000);
-
-    return () => clearInterval(interval);
-  }, [images.length]);
-
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -65,6 +43,25 @@ function Dashboard() {
   const [priceRange, setPriceRange] = useState(50000);
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedCategory, search, priceRange]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrent((prev) => (prev + 1) % images.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
 
   useEffect(() => {
     setCurrentPage(1);
