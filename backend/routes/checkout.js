@@ -5,7 +5,7 @@ const SibApiV3Sdk = require("sib-api-v3-sdk");
 
 router.post("/send-order-email", async (req, res) => {
   try {
-    const { email, cart, total, paymentMethod } = req.body;
+    const { email, phone, cart, total, paymentMethod } = req.body;
 
     console.log("REQUEST RECEIVED:");
 
@@ -59,30 +59,39 @@ router.post("/send-order-email", async (req, res) => {
       subject: "Order Confirmation",
 
       htmlContent: `
-          <h1>
-            Thank You For Your Order
-          </h1>
+<h1 style="color:#2563eb;">
+Thank You For Your Order
+</h1>
 
-          <hr>
+<p>
+Your order has been placed successfully.
+</p>
 
-          ${products}
+<hr>
 
-          <hr>
+<h2>Customer Details</h2>
 
-          <h2>
-            Total:
-            ₹${total}
-          </h2>
+<p><b>Email:</b> ${email}</p>
 
-          <p>
-            Payment Method:
-            ${paymentMethod}
-          </p>
+<p><b>Phone:</b> ${phone}</p>
 
-          <p>
-            Your order has been placed successfully.
-          </p>
-          `,
+<p><b>Payment:</b> ${paymentMethod}</p>
+
+<hr>
+
+${products}
+
+<hr>
+
+<h2 style="color:green;">
+Grand Total : ₹${total}
+</h2>
+
+<p>
+Thank you for shopping with
+<b>ShopEase ❤️</b>
+</p>
+`,
     });
 
     res.json({

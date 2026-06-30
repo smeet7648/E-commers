@@ -21,6 +21,7 @@ app.use(
 app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/products"));
 app.use("/api", require("./routes/checkout"));
+app.use("/api", require("./routes/otp"));
 app.use("/uploads", express.static("uploads"));
 
 mongoose

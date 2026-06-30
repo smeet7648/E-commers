@@ -1,22 +1,99 @@
 import React, { useState } from "react";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import axios from "axios";
 import "./invoice.css";
-import Footer from "../components/Footer";
+
 function Invoice() {
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [otp, setOtp] = useState("");
 
   const [paymentMethod, setPaymentMethod] = useState("COD");
 
+  const [otpSent, setOtpSent] = useState(false);
+  const [verified, setVerified] = useState(false);
+
+  const [sendingOtp, setSendingOtp] = useState(false);
+  const [verifyingOtp, setVerifyingOtp] = useState(false);
+
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const sendOtp = async () => {
+    if (!phone) {
+      alert("Enter phone number");
+      return;
+    }
+
+    try {
+      setSendingOtp(true);
+
+      const res = await axios.post(
+        "https://e-commers-b1u3.onrender.com/api/send-otp",
+        {
+          phone,
+        },
+      );
+
+      alert(res.data.message);
+
+      setOtpSent(true);
+    } catch (err) {
+      console.log(err.response?.data || err);
+
+      alert("Failed to send OTP");
+    }
+
+    setSendingOtp(false);
+  };
+
+  const verifyOtp = async () => {
+    if (!otp) {
+      alert("Enter OTP");
+      return;
+    }
+
+    try {
+      setVerifyingOtp(true);
+
+      const res = await axios.post(
+        "https://e-commers-b1u3.onrender.com/api/verify-otp",
+        {
+          phone,
+          otp,
+        },
+      );
+
+      alert(res.data.message);
+
+      setVerified(true);
+    } catch (err) {
+      console.log(err.response?.data || err);
+
+      alert("Invalid OTP");
+    }
+
+    setVerifyingOtp(false);
+  };
+
   const checkout = async () => {
+    if (!email || !phone) {
+      alert("Please enter Email and Phone Number");
+      return;
+    }
+    if (!verified) {
+      alert("Please verify your phone first.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "https://e-commers-b1u3.onrender.com/api/send-order-email",
         {
           email,
+          phone,
           cart,
           total,
           paymentMethod,
@@ -30,10 +107,12 @@ function Invoice() {
       window.dispatchEvent(new Event("cartUpdated"));
 
       alert("Order Placed Successfully");
+
+      window.location.href = "/dashboard";
     } catch (err) {
       console.log(err);
 
-      alert("Email Sending Failed");
+      alert("Checkout Failed");
     }
   };
 
@@ -107,11 +186,67 @@ function Invoice() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
+
+          <h3 style={{ marginTop: 20 }}>Phone Number</h3>
+
+          <input
+            type="text"
+            placeholder="+91XXXXXXXXXX"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+
+          <button onClick={sendOtp} disabled={sendingOtp}>
+            {sendingOtp ? "Sending..." : "Send OTP"}
+          </button>
+          {otpSent && (
+            <>
+              <h3 style={{ marginTop: 20 }}>Enter OTP</h3>
+
+              <input
+                type="text"
+                placeholder="6 Digit OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+              />
+
+              <button onClick={verifyOtp} disabled={verifyingOtp || verified}>
+                {verified
+                  ? "Verified ✓"
+                  : verifyingOtp
+                    ? "Verifying..."
+                    : "Verify OTP"}
+              </button>
+            </>
+          )}
+
+          {verified && (
+            <p
+              style={{
+                color: "green",
+                marginTop: "15px",
+                fontWeight: "bold",
+                fontSize: "18px",
+              }}
+            >
+              ✅ Phone Number Verified
+            </p>
+          )}
         </div>
-        <button className="checkout-btn" onClick={checkout}>
+
+        <button
+          className="checkout-btn"
+          onClick={checkout}
+          disabled={!verified}
+          style={{
+            opacity: verified ? 1 : 0.6,
+            cursor: verified ? "pointer" : "not-allowed",
+          }}
+        >
           Checkout
         </button>
       </div>
+
       <Footer />
     </>
   );
