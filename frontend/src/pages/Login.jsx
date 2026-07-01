@@ -10,9 +10,8 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
-
+  
   const login = async () => {
     try {
       const res = await axios.post(
@@ -25,7 +24,7 @@ export default function Login() {
           withCredentials: true,
         },
       );
-
+      
       localStorage.setItem("role", res.data.role);
 
       if (res.data.role === "admin") {

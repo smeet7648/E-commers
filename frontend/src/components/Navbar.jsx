@@ -43,6 +43,8 @@ function Navbar({ search, setSearch, products = [] }) {
       search && product.name.toLowerCase().includes(search.toLowerCase()),
   );
 
+  const name1 = localStorage.getItem("name1");
+
   return (
     <>
       <nav className="navbar">
@@ -124,7 +126,7 @@ function Navbar({ search, setSearch, products = [] }) {
           </Link>
 
           <Link to="/" onClick={() => setMenuOpen(false)}>
-            Login
+            {name1 ? `Welcome, ${name1}` : "Login"}
           </Link>
         </div>
 
@@ -134,7 +136,7 @@ function Navbar({ search, setSearch, products = [] }) {
           </button>
 
           <Link id="fix1" to="/">
-            Login
+            {name1 || "Login"}
           </Link>
         </div>
       </nav>
