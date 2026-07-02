@@ -1,7 +1,5 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const jwt = require("jsonwebtoken");
-
 const User = require("../models/User");
 
 passport.use(
@@ -9,7 +7,11 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: "/auth/google/callback",
+
+      callbackURL:
+        process.env.NODE_ENV === "production"
+          ? "https://e-commers-b1u3.onrender.com/auth/google/callback"
+          : "http://localhost:5000/auth/google/callback",
     },
 
     async (accessToken, refreshToken, profile, done) => {
@@ -25,7 +27,6 @@ passport.use(
 
           if (user) {
             user.googleId = profile.id;
-
             await user.save();
           } else {
             user = await User.create({
@@ -37,9 +38,9 @@ passport.use(
           }
         }
 
-        return done(null, user);
+        done(null, user);
       } catch (err) {
-        return done(err, null);
+        done(err, null);
       }
     }
   )
@@ -50,9 +51,12 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-
-  done(null, user);
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 module.exports = passport;
