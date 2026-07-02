@@ -9,7 +9,15 @@ const userSchema = new mongoose.Schema(
       unique: true,
     },
 
-    password: String,
+    password: {
+      type: String,
+      default: "",
+    },
+
+    googleId: {
+      type: String,
+      default: "",
+    },
 
     role: {
       type: String,
@@ -24,7 +32,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model(
-  "User",
-  userSchema
-);
+module.exports = mongoose.model("User", userSchema);

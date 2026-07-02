@@ -2,14 +2,26 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-
 dotenv.config();
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const passport = require("./config/passport");
+
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(
   cors({
@@ -22,6 +34,7 @@ app.use("/api", require("./routes/auth"));
 app.use("/api", require("./routes/products"));
 app.use("/api", require("./routes/checkout"));
 app.use("/api", require("./routes/otp"));
+app.use("/auth", require("./routes/googleAuth"));
 app.use("/uploads", express.static("uploads"));
 
 mongoose
